@@ -37,7 +37,7 @@ class CIFAR10Dataset(datasets.CIFAR10):
     
 
 
-def setup_cifar10_data(config):
+def setup_cifar10(config):
     # CUDA?
     cuda = torch.cuda.is_available()
     print("CUDA Available?", cuda)
