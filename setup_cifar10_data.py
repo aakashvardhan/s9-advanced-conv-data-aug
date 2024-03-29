@@ -1,7 +1,7 @@
 import albumentations as A
 from albumentations.pytorch import ToTensorV2
 from torchvision import datasets
-
+import torch
 
 
 
@@ -37,3 +37,22 @@ class CIFAR10Dataset(datasets.CIFAR10):
     
 
 
+def setup_cifar10_data(config):
+    # CUDA?
+    cuda = torch.cuda.is_available()
+    print("CUDA Available?", cuda)
+
+    # For reproducibility
+    torch.manual_seed(1)
+
+    if cuda:
+        torch.cuda.manual_seed(1)
+    train_data = datasets.CIFAR10(root='./data', train=True, download=True, transform="train")
+    test_data = datasets.CIFAR10(root='./data', train=False, download=True, transform="test")
+    
+    # dataloader arguments - something you'll fetch these from cmdprmt
+    dataloader_args = dict(shuffle=True, batch_size=config['batch_size'], num_workers=config['num_workers'], pin_memory=True) if cuda else dict(shuffle=True, batch_size=64)
+    train_loader = torch.utils.data.DataLoader(train_data, **dataloader_args)
+    test_loader = torch.utils.data.DataLoader(test_data, **dataloader_args)
+
+    return train_data,test_data,train_loader, test_loader
