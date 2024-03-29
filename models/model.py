@@ -41,11 +41,11 @@ class Net(nn.Module):
         # Convolution Block 4 (with Depthwise Separable Convolution)
         self.conv10 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1, depthwise_seperable=True) # output_size = 1, RF = 76
         self.conv11 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 1, RF = 92
-        self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0, kernel_size=(2,2)) # output_size = 1, RF = 140
+        self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0) # output_size = 1, RF = 124
         
         # Output Block
-        self.gap = nn.AvgPool2d((1,1)) # output_size = 1, RF = 140
-        self.fc = nn.Linear(576, 10) # output_size = 1, RF = 140
+        self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 140
+        self.fc = nn.Linear(64, 10) # output_size = 1, RF = 140
         
     def forward(self, x):
         x = self.conv1(x)
@@ -58,13 +58,14 @@ class Net(nn.Module):
         x = self.trans2(x)
         x = self.conv7(x)
         x = self.conv8(x)
-        print(x.shape)
         x = self.conv9(x)
         x = self.trans3(x)
         x = self.conv10(x)
         x = self.conv11(x)
         x = self.conv12(x)
         x = self.gap(x)
-        x = x.view(-1, x.size(1))
+        # print(x.shape)
+        x = x.view(x.size(0), -1)
+        # print(x.shape)
         x = self.fc(x)
         return F.log_softmax(x, dim=1)

@@ -9,8 +9,7 @@ class TransitionBlock(nn.Module):
         self.conv1d = nn.Sequential(
             nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size, bias=False, **kwargs),
         )
-        self.pool = nn.MaxPool2d(2, 2)
         
     def forward(self, x):
         x = self.conv1d(x)
-        return self.pool(x)
+        return x
