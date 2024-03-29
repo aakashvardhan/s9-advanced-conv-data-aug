@@ -9,7 +9,7 @@ torch.manual_seed(1)
 
 class Net(nn.Module):
     def __init__(self,config):
-        super(Net, self).__init__()
+        super().__init__()
         n_channels = config['n_channels']
         dropout = config['dropout']
         norm = config['norm']
@@ -20,32 +20,32 @@ class Net(nn.Module):
         self.conv3 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=0,dilation=2) # output_size = 30, RF = 9
         
         # Transition Block 1
-        self.trans1 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 15, RF = 10
+        self.trans1 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 30, RF = 9
         
         # Convolution Block 2
-        self.conv4 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 15, RF = 14
-        self.conv5 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 15, RF = 18
-        self.conv6 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4) # output_size = 11, RF = 26
+        self.conv4 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 30, RF = 13
+        self.conv5 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 30, RF = 17
+        self.conv6 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4) # output_size = 26, RF = 25
         
         # Transition Block 2
-        self.trans2 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 5, RF = 28
+        self.trans2 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 26, RF = 25
         
         # Convolution Block 3
-        self.conv7 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 5, RF = 36
-        self.conv8 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 5, RF = 44
-        self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=8) # output_size = 1, RF = 60
+        self.conv7 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 26, RF = 33 
+        self.conv8 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 26, RF = 41
+        self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=8) # output_size = 18, RF = 57
         
         # Transition Block 3
-        self.trans3 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 1, RF = 60
+        self.trans3 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 18, RF = 57
         
         # Convolution Block 4 (with Depthwise Separable Convolution)
-        self.conv10 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1, depthwise_seperable=True) # output_size = 1, RF = 76
-        self.conv11 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 1, RF = 92
-        self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0) # output_size = 1, RF = 124
+        self.conv10 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1, depthwise_seperable=True) # output_size = 18, RF = 75 
+        self.conv11 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 18, RF = 93
+        self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0) # output_size = 16, RF = 109
         
         # Output Block
-        self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 140
-        self.fc = nn.Linear(64, 10) # output_size = 1, RF = 140
+        self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 125
+        self.fc = nn.Linear(32, 10) # output_size = 1, RF = 125
         
     def forward(self, x):
         x = self.conv1(x)
@@ -68,4 +68,4 @@ class Net(nn.Module):
         x = x.view(x.size(0), -1)
         # print(x.shape)
         x = self.fc(x)
-        return F.log_softmax(x, dim=1)
+        return F.log_softmax(x, dim=-1)
