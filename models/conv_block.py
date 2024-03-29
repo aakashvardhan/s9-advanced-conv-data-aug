@@ -1,8 +1,6 @@
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import torch.optim as optim
-from config import get_config
+
 # import sys
 # # add parent directory to path
 # sys.path.append('/Users/aakashvardhan/Library/CloudStorage/GoogleDrive-vardhan.aakash1@gmail.com/My Drive/ERA v2/s8-normalization/config.py')
@@ -10,7 +8,7 @@ from config import get_config
 
 GROUP_SIZE_GN = 2
 GROUP_SIZE_LN = 1
-config = get_config()
+
 
 class LayerNorm(nn.Module):
     def __init__(self, num_features):
@@ -22,7 +20,7 @@ class LayerNorm(nn.Module):
 
 
 class DepthwiseSeparableConv2d(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size=(3,3), padding=0, bias=False, **kwargs):
+    def __init__(self, in_channels, out_channels, kernel_size=(3,3), padding=1, bias=False, **kwargs):
         super().__init__()
         self.depthwise = nn.Conv2d(in_channels, in_channels, kernel_size=kernel_size, padding=padding, groups=in_channels, bias=bias, **kwargs)
         self.pointwise = nn.Conv2d(in_channels, out_channels, kernel_size=(1,1), bias=bias, **kwargs)
@@ -46,9 +44,9 @@ class ConvBlock(nn.Module):
             raise ValueError('Norm type {} not supported'.format(norm))
         
         if depthwise_seperable:
-            self.conv = DepthwiseSeparableConv2d(in_channels, out_channels, kernel_size=kernel_size, padding=1, bias=False,dilation=dilation, **kwargs)
+            self.conv = DepthwiseSeparableConv2d(in_channels, out_channels, kernel_size=kernel_size, bias=False,dilation=dilation, **kwargs)
         else:
-            self.conv = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size,dilation=dilation,bias=False, **kwargs),
+            self.conv = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size,dilation=dilation,bias=False, **kwargs)
         
         self.convblock = nn.Sequential(
             self.conv,
