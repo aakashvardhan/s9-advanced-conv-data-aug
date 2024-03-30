@@ -79,7 +79,7 @@ class Net(nn.Module):
         x = self.conv12(x)
         # print("After Conv12: ", x.shape)
         x = self.gap(x)
-        print("After GAP: ", x.shape)
+        # print("After GAP: ", x.shape)
         x = x.view(-1, 64)
         # print("After Reshaping: ", x.shape)
         x = self.fc(x)
