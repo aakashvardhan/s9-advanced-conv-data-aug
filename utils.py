@@ -20,6 +20,9 @@ def train(model, device, train_loader, optimizer, epoch):
     for batch_idx, (data, target) in enumerate(pbar):
         # get samples
         data, target = data.to(device), target.to(device)
+        
+        print(data.shape)
+        print(target.shape)
 
         # Init
         optimizer.zero_grad()
