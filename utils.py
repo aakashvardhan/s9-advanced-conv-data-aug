@@ -31,6 +31,8 @@ def train(model, device, train_loader, optimizer, epoch):
 
         # Predict
         y_pred = model(data)
+        
+        print(y_pred.shape)
 
         # Calculate loss
         loss = F.nll_loss(y_pred, target)
