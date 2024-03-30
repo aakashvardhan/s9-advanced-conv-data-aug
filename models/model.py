@@ -84,3 +84,5 @@ class Net(nn.Module):
         # print("After Conv13: ", x.shape)
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
+    
+    

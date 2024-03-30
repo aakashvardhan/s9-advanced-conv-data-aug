@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader, Subset
 import torch.nn.functional as F
 import torch.optim as optim
 import torch
-
+import argparse
 from setup_cifar10_data import CIFAR10Dataset
 
 def test_model_sanity(model_):
@@ -68,9 +68,26 @@ def test_model_sanity(model_):
 
 
 if __name__ == '__main__':
+    # Create argument parser
+    parser = argparse.ArgumentParser(description='Model Testing')
+    parser.add_argument('--summary', action='store_true', help='Print model summary')
+    parser.add_argument('--sanity', action='store_true', help='Perform model sanity check')
+    parser.add_argument('--shapes', action='store_true', help='Print shapes of all layers')
+
+    # Parse arguments
+    args = parser.parse_args()
+
     # Create
     config = get_config()
-    # config['n_channels'] = 32
     model = Net(config)
-    model_summary(model, input_size=(3, 32, 32))
-    # test_model_sanity(model)
+
+    if args.summary:
+        model_summary(model, input_size=(3, 32, 32))
+
+    if args.sanity:
+        test_model_sanity(model)
+
+    if args.shapes:
+        # print shapes of all layers (excluding bias)
+        for name, param in model.named_parameters():
+            print(name, param.shape)
