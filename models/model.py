@@ -44,7 +44,7 @@ class Net(nn.Module):
         self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0) # output_size = 16, RF = 109
         
         # Output Block
-        self.gap = nn.AvgPool2d(2) # output_size = 1, RF = 125
+        self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 125
         self.fc = nn.Linear(64, 10,bias=False) # output_size = 1, RF = 125
         
     def forward(self, x):
@@ -79,7 +79,7 @@ class Net(nn.Module):
         x = self.conv12(x)
         # print("After Conv12: ", x.shape)
         x = self.gap(x)
-        # print("After GAP: ", x.shape)
+        print("After GAP: ", x.shape)
         x = x.view(-1, 64)
         # print("After Reshaping: ", x.shape)
         x = self.fc(x)
