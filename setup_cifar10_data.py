@@ -10,6 +10,7 @@ class CIFAR10Dataset(datasets.CIFAR10):
     
     def __init__(self, root="~/data", train=True, download=True, transform=None):
         super().__init__(root=root, train=train, download=download, transform=transform)
+        mean_value = self.data.mean(axis=(0,1,2)) / 255
         if transform == "train":
             self.transform = A.Compose([
                 A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=15, p=0.5),
