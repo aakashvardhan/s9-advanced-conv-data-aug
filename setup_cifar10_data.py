@@ -47,8 +47,8 @@ def setup_cifar10(config):
 
     if cuda:
         torch.cuda.manual_seed(1)
-    train_data = datasets.CIFAR10(root='./data', train=True, download=True, transform="train")
-    test_data = datasets.CIFAR10(root='./data', train=False, download=True, transform="test")
+    train_data = CIFAR10Dataset(root='./data', train=True, download=True, transform="train")
+    test_data = CIFAR10Dataset(root='./data', train=False, download=True, transform="test")
     
     # dataloader arguments - something you'll fetch these from cmdprmt
     dataloader_args = dict(shuffle=True, batch_size=config['batch_size'], num_workers=config['num_workers'], pin_memory=True) if cuda else dict(shuffle=True, batch_size=64)
