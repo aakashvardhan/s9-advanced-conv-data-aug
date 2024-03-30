@@ -6,7 +6,7 @@ from visualize import show_misclassified_images, plt_misclassified_images
 from torch.optim.lr_scheduler import StepLR
 from setup_cifar10_data import setup_cifar10
 
-def main(config, lr_scheduler=False):
+def main(config):
     train_data,test_data,train_loader, test_loader = setup_cifar10(config)
     model = Net(config).to(config['device'])
     model_summary(model, input_size=(3, 32, 32))
@@ -17,7 +17,7 @@ def main(config, lr_scheduler=False):
         print("EPOCH:", epoch)
         train(model, config['device'], train_loader, optimizer, epoch)
         test(model, config['device'], test_loader)
-        if lr_scheduler == True:
+        if config['lr_scheduler'] == True:
             scheduler.step()
             lr.append(optimizer.param_groups[0]['lr'])
     
