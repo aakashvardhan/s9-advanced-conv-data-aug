@@ -11,7 +11,7 @@ def get_config():
         'batch_size': 128,
         'epochs': 20,
         'lr': 0.01,
-        'lr_scheduler': False,
+        'lr_scheduler': 'step_lr',
         'dropout': 0.1,
         'norm': 'bn',
         'classes': ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'),

@@ -50,8 +50,8 @@ class ConvBlock(nn.Module):
         
         self.convblock = nn.Sequential(
             self.conv,
-            self.norm(out_channels),
             nn.ReLU(),
+            self.norm(out_channels),
             nn.Dropout(dropout_value)
         )
         
