@@ -12,7 +12,7 @@ def main(config):
     model_summary(model, input_size=(3, 32, 32))
     optimizer = sgd_optimizer(model, lr=config['lr'])
     scheduler = StepLR(optimizer, step_size=config['step_size'], gamma=0.1)
-    lr_plateau = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=4, verbose=True)
+    lr_plateau = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=2, verbose=True)
     lr = []
     for epoch in range(1,config['epochs']+1):
         print("EPOCH:", epoch)
