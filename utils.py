@@ -21,8 +21,6 @@ def train(model, device, train_loader, optimizer, epoch):
         # get samples
         data, target = data.to(device), target.to(device)
         
-        print(data.shape)
-        print(target.shape)
 
         # Init
         optimizer.zero_grad()
@@ -31,8 +29,6 @@ def train(model, device, train_loader, optimizer, epoch):
 
         # Predict
         y_pred = model(data)
-        
-        print(y_pred.shape)
 
         # Calculate loss
         loss = F.nll_loss(y_pred, target)
