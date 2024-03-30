@@ -23,17 +23,17 @@ class Net(nn.Module):
         self.trans1 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 30, RF = 9
         
         # Convolution Block 2
-        self.conv4 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 30, RF = 13
-        self.conv5 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1) # output_size = 30, RF = 17
-        self.conv6 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4) # output_size = 26, RF = 25
+        self.conv4 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1,dropout_value=dropout) # output_size = 30, RF = 13
+        self.conv5 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1,dropout_value=dropout) # output_size = 30, RF = 17
+        self.conv6 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4,dropout_value=dropout) # output_size = 26, RF = 25
         
         # Transition Block 2
         self.trans2 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 26, RF = 25
         
         # Convolution Block 3
-        self.conv7 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1,dropout_value=0.1) # output_size = 26, RF = 33 
-        self.conv8 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1,dropout_value=0.1) # output_size = 26, RF = 41
-        self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=8,dropout_value=0.1) # output_size = 18, RF = 57
+        self.conv7 = ConvBlock(in_channels=n_channels // 4, out_channels=n_channels // 2, norm=norm, padding=1,dropout_value=dropout) # output_size = 26, RF = 33 
+        self.conv8 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels, norm=norm, padding=1,dropout_value=dropout) # output_size = 26, RF = 41
+        self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=8,dropout_value=dropout) # output_size = 18, RF = 57
         
         # Transition Block 3
         self.trans3 = TransitionBlock(in_channels=n_channels, out_channels=n_channels // 4, padding=0) # output_size = 18, RF = 57
@@ -45,7 +45,7 @@ class Net(nn.Module):
         
         # Output Block
         self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 125
-        self.fc = nn.Linear(32, 10) # output_size = 1, RF = 125
+        self.fc = nn.Linear(32, 10,bias=False) # output_size = 1, RF = 125
         
     def forward(self, x):
         x = self.conv1(x)
