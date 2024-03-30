@@ -25,6 +25,7 @@ def main(config):
         elif config['lr_scheduler'] == 'plateau':
             lr_plateau.step(test_loss)
             lr.append(optimizer.param_groups[0]['lr'])
+            print("Learning rate:", optimizer.param_groups[0]['lr'])
     
     # format name of model file according to config['norm']
     model_file = 'model_' + config['norm'] + '.pth'
