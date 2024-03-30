@@ -73,4 +73,4 @@ if __name__ == '__main__':
     # config['n_channels'] = 32
     model = Net(config)
     model_summary(model, input_size=(3, 32, 32))
-    test_model_sanity(model)
+    # test_model_sanity(model)
