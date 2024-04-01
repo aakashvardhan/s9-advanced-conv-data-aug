@@ -23,7 +23,7 @@ def main(config):
             lr.append(optimizer.param_groups[0]['lr'])
             
         elif config['lr_scheduler'] == 'plateau':
-            lr_plateau.step(test_loss)
+            lr_plateau.step(model.test_losses[-1])
             lr.append(optimizer.param_groups[0]['lr'])
             print("Learning rate:", optimizer.param_groups[0]['lr'])
     
