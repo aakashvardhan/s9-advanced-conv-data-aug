@@ -208,6 +208,9 @@ def forward(self, x):
         self.fc = nn.Linear(in_features, 10).to(x.device)
     ...
 ```
+Our goal is to utilize the advanced convolution techniques and use alternative ways to increase the receptive field of the network instead of using max-pooling.
+
+As a result, the total receptive field of the network is 125.
 
 ## Results
 
