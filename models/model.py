@@ -46,9 +46,8 @@ class Net(nn.Module):
         self.conv12 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0) # output_size = 16, RF = 109
         
         # Output Block
-        self.gap = nn.AdaptiveAvgPool2d(1) # output_size = 1, RF = 125
-        self.conv13 = nn.Conv2d(in_channels=n_channels, out_channels=10, kernel_size=(1,1), padding=0, bias=False) # output_size = 1, RF = 125
-        
+        self.gap = nn.AdaptiveAvgPool2d((1,1)) # output_size = 1, RF = 125
+        self.fc = None
     def forward(self, x):
         x = self.conv1(x)
         if self.config['debug']:
@@ -98,10 +97,17 @@ class Net(nn.Module):
         x = self.gap(x)
         if self.config['debug']:
             print("After GAP: ", x.shape)
-        x = self.conv13(x)
+        
+        if self.fc is None:
+            in_features = x.shape[1] * x.shape[2] * x.shape[3]
+            self.fc = nn.Linear(in_features, 10)
+        
+        x = x.view(-1, in_features)
         if self.config['debug']:
-            print("After Conv13: ", x.shape)
-        x = x.view(-1, 10)
+            print("After View: ", x.shape)
+        x = self.fc(x)
+        if self.config['debug']:
+            print("After FC: ", x.shape)
         return F.log_softmax(x, dim=-1)
     
     
