@@ -52,9 +52,15 @@ Dilated Convolution is a technique that increases the receptive field of the net
 ```python
 # In model.py
 
-######################
-self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4,dropout_value=dropout)
-#######################
+class Net(nn.Module):
+    def __init__(self, n_channels=3, norm='bn', dropout=0.1):
+        ...
+        self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4,dropout_value=dropout)
+        ...
+    def forward(self, x):
+        ...
+        x = self.conv9(x)
+        ...
 ```
 
 ## Albumentations
@@ -188,7 +194,7 @@ Estimated Total Size (MB): 4.61
 ----------------------------------------------------------------
 ```
 
-**Note**: The model summary is slightly different from the actual model.
+**Note**: The model summary is slightly different as outputted from the [notebook](https://github.com/aakashvardhan/s9-advanced-conv-data-aug/blob/main/notebooks/model_train.ipynb).
 
 The fully connected layer is not included in the model summary as it was initialzed in the forward method of the model.
 
