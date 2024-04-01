@@ -12,7 +12,7 @@ def main(config):
     model_summary(model, input_size=(3, 32, 32))
     optimizer = sgd_optimizer(model, lr=config['lr'])
     scheduler = StepLR(optimizer, step_size=config['step_size'], gamma=0.1)
-    lr_plateau = ReduceLROnPlateau(optimizer, mode='min', factor=0.05, patience=5, verbose=True)
+    lr_plateau = ReduceLROnPlateau(optimizer, mode='min', patience=5, verbose=True)
     lr = []
     for epoch in range(1,config['epochs']+1):
         print("EPOCH:", epoch)
@@ -23,7 +23,7 @@ def main(config):
             lr.append(optimizer.param_groups[0]['lr'])
             
         elif config['lr_scheduler'] == 'plateau':
-            lr_plateau.step(test_loss)
+            lr_plateau.step(test_loss[-1])
             lr.append(optimizer.param_groups[0]['lr'])
             print("Learning rate:", optimizer.param_groups[0]['lr'])
     

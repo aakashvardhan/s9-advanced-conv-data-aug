@@ -16,6 +16,7 @@ class CIFAR10Dataset(datasets.CIFAR10):
                 A.HorizontalFlip(p=0.5),
                 A.CoarseDropout(max_holes=1, max_height=16, max_width=16, min_holes=1, min_height=16, min_width=16, fill_value=(0.4914, 0.4822, 0.4465), mask_fill_value=None),
                 A.RandomBrightnessContrast(p=0.2),
+                A.CenterCrop(32, 32, always_apply=True),
                 A.Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.247, 0.243, 0.261)),
                 ToTensorV2(),
             ])
