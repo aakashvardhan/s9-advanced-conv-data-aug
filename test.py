@@ -79,6 +79,8 @@ if __name__ == '__main__':
 
     # Create
     config = get_config()
+    config['debug'] = True
+    config['n_channels'] = 36
     model = Net(config)
 
     if args.summary:

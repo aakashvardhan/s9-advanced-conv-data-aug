@@ -14,6 +14,8 @@ class Net(nn.Module):
         dropout = config['dropout']
         norm = config['norm']
         
+        self.config = config
+        
         # Convolution Block 1
         self.conv1 = ConvBlock(in_channels=3, out_channels=n_channels // 2, norm=norm, padding=3,kernel_size=(7,7)) # output_size = 32, RF = 7
         self.conv2 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 32, RF = 7
@@ -49,39 +51,56 @@ class Net(nn.Module):
         
     def forward(self, x):
         x = self.conv1(x)
-        # print("After Conv1: ", x.shape)
+        if self.config['debug']:
+            print("After Conv1: ", x.shape)
         x = x + self.conv2(x)
-        # print("After Conv2: ", x.shape)
+        if self.config['debug']:
+            print("After Conv2: ", x.shape)
         x3 = self.conv3(x)
-        # print("After Conv3: ", x3.shape)
+        if self.config['debug']:
+            print("After Conv3: ", x3.shape)
         x = self.trans1(x3)
-        # print("After Transition1: ", x.shape)
+        if self.config['debug']:
+            print("After Transition1: ", x.shape)
         x = self.conv4(x)
-        # print("After Conv4: ", x.shape)
+        if self.config['debug']:
+            print("After Conv4: ", x.shape)
         x = x + self.conv5(x)
-        # print("After Conv5: ", x.shape)
+        if self.config['debug']:
+            print("After Conv5: ", x.shape)
         x6 = self.conv6(x)
-        # print("After Conv6: ", x6.shape)
+        if self.config['debug']:
+            print("After Conv6: ", x6.shape)
         x = self.trans2(x6)
-        # print("After Transition2: ", x.shape)
+        if self.config['debug']:
+            print("After Transition2: ", x.shape)
         x = self.conv7(x)
-        # print("After Conv7: ", x.shape)
+        if self.config['debug']:
+            print("After Conv7: ", x.shape)
         x = x + self.conv8(x)
-        # print("After Conv8: ", x.shape)
+        if self.config['debug']:
+            print("After Conv8: ", x.shape)
         x9 = self.conv9(x)
-        # print("After Conv9: ", x9.shape)
+        if self.config['debug']:
+            print("After Conv9: ", x9.shape)
         x = self.trans3(x9)
-        # print("After Transition3: ", x.shape)
+        if self.config['debug']:
+            print("After Transition3: ", x.shape)
         x = self.conv10(x)
-        # print("After Conv10: ", x.shape)
-        x = self.conv11(x)
-        # print("After Conv11: ", x.shape)
+        if self.config['debug']:
+            print("After Conv10: ", x.shape)
+        x = x + self.conv11(x)
+        if self.config['debug']:
+            print("After Conv11: ", x.shape)
         x = self.conv12(x)
-        # print("After Conv12: ", x.shape)
+        if self.config['debug']:
+            print("After Conv12: ", x.shape)
         x = self.gap(x)
-        # print("After GAP: ", x.shape)
+        if self.config['debug']:
+            print("After GAP: ", x.shape)
         x = self.conv13(x)
-        # print("After Conv13: ", x.shape)
+        if self.config['debug']:
+            print("After Conv13: ", x.shape)
         x = x.view(-1, 10)
         return F.log_softmax(x, dim=-1)
     

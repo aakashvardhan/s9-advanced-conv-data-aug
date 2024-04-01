@@ -4,6 +4,7 @@ import torch
 
 def get_config():
     config = {
+        'debug': False,
         'step_size': 6,
         'num_workers': 2,
         'n_channels': 32,
