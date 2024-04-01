@@ -415,3 +415,4 @@ Learning rate: 0.0015625
 
 The model achieved an accuracy of 85.43% on the test dataset after 100 epochs.
 
+![Accuracy](https://github.com/aakashvardhan/s9-advanced-conv-data-aug/blob/main/asset/model-performance.png)
