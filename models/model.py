@@ -100,7 +100,7 @@ class Net(nn.Module):
         
         if self.fc is None:
             in_features = x.shape[1] * x.shape[2] * x.shape[3]
-            self.fc = nn.Linear(in_features, 10)
+            self.fc = nn.Linear(in_features, 10).to(self.config['device'])
         
         x = x.view(-1, in_features)
         if self.config['debug']:
