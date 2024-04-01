@@ -15,7 +15,7 @@ class CIFAR10Dataset(datasets.CIFAR10):
             self.transform = A.Compose([
                 A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=7, p=0.5),
                 A.HorizontalFlip(p=0.5),
-                A.CoarseDropout(max_holes=1, max_height=16px, max_width=1, min_holes=1, min_height=16px, min_width=16px, fill_value=(mean_value), mask_fill_value=None),
+                A.CoarseDropout(max_holes=1, max_height=16, max_width=1, min_holes=1, min_height=16, min_width=16, fill_value=(mean_value), mask_fill_value=None),
                 A.Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.247, 0.243, 0.261)),
                 ToTensorV2(),
             ])
