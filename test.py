@@ -80,7 +80,7 @@ if __name__ == '__main__':
     # Create
     config = get_config()
     config['debug'] = True
-    config['n_channels'] = 36
+    config['n_channels'] = 38
     model = Net(config)
 
     if args.summary:
