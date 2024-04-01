@@ -33,3 +33,20 @@ Depthwise Separable Convolution is a technique that factorizes a standard convol
 
 Dilated Convolution is a technique that increases the receptive field of the network without increasing the number of parameters. It introduces gaps in the convolutional kernel to increase the receptive field.
 
+## Albumentations
+
+Albumentations is a Python library for image augmentation. It is used to apply a variety of transformations to the input image to increase the diversity of the dataset.
+
+```python
+import albumentations as A
+
+A.Compose([
+            A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=15, p=0.3),
+            A.HorizontalFlip(p=0.5),
+            A.CoarseDropout(max_holes=1, max_height=16, max_width=16, min_holes=1, min_height=16, min_width=16, fill_value=(0.4914, 0.4822, 0.4465), mask_fill_value=None),
+            A.RandomBrightnessContrast(p=0.2),
+            A.CenterCrop(32, 32, always_apply=True),
+            A.Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.247, 0.243, 0.261)),
+            ToTensorV2(),
+        ])
+```
