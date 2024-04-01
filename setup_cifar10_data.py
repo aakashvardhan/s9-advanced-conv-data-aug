@@ -10,12 +10,12 @@ class CIFAR10Dataset(datasets.CIFAR10):
     
     def __init__(self, root="~/data", train=True, download=True, transform=None):
         super().__init__(root=root, train=train, download=download, transform=transform)
-        mean_value = self.data.mean(axis=(0,1,2)) / 255
         if transform == "train":
             self.transform = A.Compose([
-                A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=7, p=0.5),
+                A.ShiftScaleRotate(shift_limit=0.0625, scale_limit=0.2, rotate_limit=15, p=0.3),
                 A.HorizontalFlip(p=0.5),
-                A.CoarseDropout(max_holes=1, max_height=16, max_width=1, min_holes=1, min_height=16, min_width=16, fill_value=(mean_value), mask_fill_value=None),
+                A.CoarseDropout(max_holes=1, max_height=16, max_width=16, min_holes=1, min_height=16, min_width=16, fill_value=(0.4914, 0.4822, 0.4465), mask_fill_value=None),
+                A.RandomBrightnessContrast(p=0.2),
                 A.Normalize(mean=(0.4914, 0.4822, 0.4465), std=(0.247, 0.243, 0.261)),
                 ToTensorV2(),
             ])
