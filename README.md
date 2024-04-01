@@ -194,7 +194,7 @@ Estimated Total Size (MB): 4.61
 ----------------------------------------------------------------
 ```
 
-**Note**: The model summary is manually edited here as outputted from the [notebook](https://github.com/aakashvardhan/s9-advanced-conv-data-aug/blob/main/notebooks/model_train.ipynb).
+**Note**: The model summary is manually edited in **README.md** as outputted from the [notebook](https://github.com/aakashvardhan/s9-advanced-conv-data-aug/blob/main/notebooks/model_train.ipynb).
 
 The fully connected layer is not included in the model summary as it was initialzed in the forward method of the model.
 
