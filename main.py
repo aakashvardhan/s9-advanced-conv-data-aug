@@ -21,7 +21,7 @@ def main(config):
         if config['lr_scheduler'] == 'step_lr':
             scheduler.step()
             lr.append(optimizer.param_groups[0]['lr'])
-            
+            print("Learning rate:", optimizer.param_groups[0]['lr'])
         elif config['lr_scheduler'] == 'plateau':
             lr_plateau.step(utils.test_losses[-1])
             lr.append(optimizer.param_groups[0]['lr'])
