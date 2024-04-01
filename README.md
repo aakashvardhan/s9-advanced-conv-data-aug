@@ -138,8 +138,8 @@ A.Compose([
            Conv2d-42           [-1, 19, 11, 11]             171
            Conv2d-43           [-1, 38, 11, 11]             722
            Conv2d-44           [-1, 38, 11, 11]             722
-DepthwiseSeparableConv2d-45           [-1, 38, 11, 11]               0
-DepthwiseSeparableConv2d-46           [-1, 38, 11, 11]               0
+DepthwiseSeparableConv2d-45    [-1, 38, 11, 11]               0
+DepthwiseSeparableConv2d-46    [-1, 38, 11, 11]               0
       BatchNorm2d-47           [-1, 38, 11, 11]              76
              ReLU-48           [-1, 38, 11, 11]               0
           Dropout-49           [-1, 38, 11, 11]               0
@@ -162,8 +162,8 @@ DepthwiseSeparableConv2d-46           [-1, 38, 11, 11]               0
            Conv2d-66             [-1, 19, 3, 3]             171
            Conv2d-67             [-1, 38, 3, 3]             722
            Conv2d-68             [-1, 38, 3, 3]             722
-DepthwiseSeparableConv2d-69             [-1, 38, 3, 3]               0
-DepthwiseSeparableConv2d-70             [-1, 38, 3, 3]               0
+DepthwiseSeparableConv2d-69      [-1, 38, 3, 3]               0
+DepthwiseSeparableConv2d-70      [-1, 38, 3, 3]               0
       BatchNorm2d-71             [-1, 38, 3, 3]              76
              ReLU-72             [-1, 38, 3, 3]               0
           Dropout-73             [-1, 38, 3, 3]               0
@@ -181,7 +181,7 @@ DepthwiseSeparableConv2d-70             [-1, 38, 3, 3]               0
           Dropout-85             [-1, 38, 1, 1]               0
         ConvBlock-86             [-1, 38, 1, 1]               0
 AdaptiveAvgPool2d-87             [-1, 38, 1, 1]               0
-        Linear-88                   [-1, 10]             380
+        Linear-88                   [-1, 10]                380
 ================================================================
 Total params: 196,422
 Trainable params: 196,422
