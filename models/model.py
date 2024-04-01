@@ -102,7 +102,7 @@ class Net(nn.Module):
             in_features = x.shape[1] * x.shape[2] * x.shape[3]
             self.fc = nn.Linear(in_features, 10).to(self.config['device'])
         
-        x = x.view(-1, in_features)
+        x = x.view(-1, x.size(0))
         if self.config['debug']:
             print("After View: ", x.shape)
         x = self.fc(x)
