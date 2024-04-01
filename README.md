@@ -1,4 +1,4 @@
-# Advanced Convolution Techniques & Middle-Class Man's Data Augmentation Strategies(MMDA) for Image Classification
+# Advanced Convolution Techniques & Data Augmentation Strategies for Image Classification
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -8,3 +8,7 @@
 5. [Results](#results)
 
 
+## Introduction
+
+This repository is a development of:
+- [s8-normalization](https://github.com/aakashvardhan/s8-normalization)
