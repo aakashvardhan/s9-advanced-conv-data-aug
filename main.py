@@ -5,7 +5,7 @@ from utils import train,test
 from visualize import show_misclassified_images, plt_misclassified_images
 from torch.optim.lr_scheduler import StepLR,ReduceLROnPlateau
 from setup_cifar10_data import setup_cifar10
-
+import utils
 def main(config):
     train_data,test_data,train_loader, test_loader = setup_cifar10(config)
     model = Net(config).to(config['device'])
@@ -23,7 +23,7 @@ def main(config):
             lr.append(optimizer.param_groups[0]['lr'])
             
         elif config['lr_scheduler'] == 'plateau':
-            lr_plateau.step(test_loss[-1])
+            lr_plateau.step(utils.test_losses[-1])
             lr.append(optimizer.param_groups[0]['lr'])
             print("Learning rate:", optimizer.param_groups[0]['lr'])
     
