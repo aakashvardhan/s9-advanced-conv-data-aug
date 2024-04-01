@@ -5,7 +5,7 @@ import torch
 def get_config():
     config = {
         'debug': False,
-        'step_size': 6,
+        'step_size': 7,
         'num_workers': 2,
         'n_channels': 32,
         'device': torch.device("cuda" if torch.cuda.is_available() else "cpu"),
