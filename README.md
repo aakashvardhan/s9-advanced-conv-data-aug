@@ -29,9 +29,33 @@ Depthwise Separable Convolution is a technique that factorizes a standard convol
 1. Depthwise Convolution: This layer applies a single filter per input channel. It is used to learn spatial information.
 2. Pointwise Convolution: This layer applies a 1x1 convolution to combine the output of Depthwise Convolution. It is used to learn the depthwise information.
 
+```python
+# In conv_block.py
+import torch.nn as nn
+
+class DepthwiseSeparableConvolution(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size=3, padding=1, bias=False):
+        super(DepthwiseSeparableConvolution, self).__init__()
+        self.depthwise = nn.Conv2d(in_channels, in_channels, kernel_size=kernel_size, padding=padding, groups=in_channels, bias=bias)
+        self.pointwise = nn.Conv2d(in_channels, out_channels, kernel_size=1, bias=bias)
+
+    def forward(self, x):
+        x = self.depthwise(x)
+        x = self.pointwise(x)
+        return x
+```
+
 ### Dilated Convolution
 
 Dilated Convolution is a technique that increases the receptive field of the network without increasing the number of parameters. It introduces gaps in the convolutional kernel to increase the receptive field.
+
+```python
+# In model.py
+
+######################
+self.conv9 = ConvBlock(in_channels=n_channels, out_channels=n_channels, norm=norm, padding=0,dilation=4,dropout_value=dropout)
+#######################
+```
 
 ## Albumentations
 
