@@ -16,6 +16,7 @@ In this repository, we will be using the following techniques to improve the per
 1. **Advanced Convolution Techniques**:
     - Depthwise Separable Convolution
     - Dilated Convolution
+    - Skip Connections
 2. **Data Augmentation Techniques**:
     - Albumentations
 
@@ -62,6 +63,30 @@ class Net(nn.Module):
         x = self.conv9(x)
         ...
 ```
+
+### Skip Connections
+
+Residual Networks use skip connections to add the input of a layer to the output of a layer. This helps in training deeper networks and improves the flow of gradients.
+
+```python
+# In model.py
+
+class Net(nn.Module):
+    def __init__(self, n_channels=3, norm='bn', dropout=0.1):
+        ...
+        # Convolution Block 1
+        self.conv1 = ConvBlock(in_channels=3, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 32, RF = 3
+        self.conv2 = ConvBlock(in_channels=n_channels // 2, out_channels=n_channels // 2, norm=norm, padding=1) # output_size = 32, RF = 5
+        ...
+    def forward(self, x):
+        ...
+        x1 = self.conv1(x)
+        x2 = x1 + self.conv2(x1)
+        ...
+```
+
+We added a skip connection based on the dimension of the input and output of the layer.
+
 
 ## Albumentations
 
