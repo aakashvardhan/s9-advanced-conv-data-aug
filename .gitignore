@@ -1,3 +1,7 @@
 *.pyc
 
 data/
+
+test_model.py
+
+__pycache__/
